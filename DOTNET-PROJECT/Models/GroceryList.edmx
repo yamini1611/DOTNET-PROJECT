@@ -1,0 +1,506 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DOTNETModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Flower">
+          <Key>
+            <PropertyRef Name="fid" />
+          </Key>
+          <Property Name="fid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" />
+          <Property Name="originalcost" Type="int" />
+          <Property Name="retailprice" Type="int" />
+          <Property Name="stock" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="image" Type="varbinary(max)" />
+          <Property Name="offer" Type="varchar" MaxLength="5" />
+          <Property Name="category" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Fruit">
+          <Key>
+            <PropertyRef Name="fid" />
+          </Key>
+          <Property Name="fid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" />
+          <Property Name="originalcost" Type="int" />
+          <Property Name="retailprice" Type="int" />
+          <Property Name="stock" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="image" Type="varbinary(max)" />
+          <Property Name="offer" Type="varchar" MaxLength="5" />
+          <Property Name="category" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Meat">
+          <Key>
+            <PropertyRef Name="mid" />
+          </Key>
+          <Property Name="mid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" />
+          <Property Name="originalcost" Type="int" />
+          <Property Name="retailprice" Type="int" />
+          <Property Name="stock" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="image" Type="varbinary(max)" />
+          <Property Name="offer" Type="varchar" MaxLength="5" />
+          <Property Name="category" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="orderid" />
+          </Key>
+          <Property Name="orderid" Type="int" Nullable="false" />
+          <Property Name="productname" Type="varchar" MaxLength="20" />
+          <Property Name="amount" Type="int" />
+          <Property Name="productimage" Type="varbinary(max)" />
+          <Property Name="userid" Type="int" />
+        </EntityType>
+        <EntityType Name="packedfood">
+          <Key>
+            <PropertyRef Name="pacid" />
+          </Key>
+          <Property Name="pacid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" />
+          <Property Name="originalcost" Type="int" />
+          <Property Name="retailprice" Type="int" />
+          <Property Name="stock" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="image" Type="varbinary(max)" />
+          <Property Name="offer" Type="varchar" MaxLength="5" />
+          <Property Name="category" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Roleid" />
+          </Key>
+          <Property Name="Roleid" Type="int" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="todayoffer">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" />
+          <Property Name="originalcost" Type="int" />
+          <Property Name="retailprice" Type="int" />
+          <Property Name="stock" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="image" Type="varbinary(max)" />
+          <Property Name="offer" Type="varchar" MaxLength="5" />
+          <Property Name="category" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="20" />
+          <Property Name="password" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="varchar" MaxLength="20" />
+          <Property Name="Roleid" Type="int" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="10" />
+          <Property Name="modified_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Vegetable">
+          <Key>
+            <PropertyRef Name="vegid" />
+          </Key>
+          <Property Name="vegid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" />
+          <Property Name="originalcost" Type="int" />
+          <Property Name="retailprice" Type="int" />
+          <Property Name="stock" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="image" Type="varbinary(max)" />
+          <Property Name="offer" Type="varchar" MaxLength="5" />
+          <Property Name="category" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__Orders__userid__6FE99F9F">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__Roleid__6B24EA82">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Roleid" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Modifiedby" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Username" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Validate_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="DOTNETModelStoreContainer">
+          <EntitySet Name="Flower" EntityType="Self.Flower" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fruit" EntityType="Self.Fruit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Meat" EntityType="Self.Meat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="packedfood" EntityType="Self.packedfood" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="todayoffer" EntityType="Self.todayoffer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vegetable" EntityType="Self.Vegetable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Orders__userid__6FE99F9F" Association="Self.FK__Orders__userid__6FE99F9F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__Roleid__6B24EA82" Association="Self.FK__Users__Roleid__6B24EA82">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DOTNETModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Flower">
+          <Key>
+            <PropertyRef Name="fid" />
+          </Key>
+          <Property Name="fid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="originalcost" Type="Int32" />
+          <Property Name="retailprice" Type="Int32" />
+          <Property Name="stock" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="offer" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Fruit">
+          <Key>
+            <PropertyRef Name="fid" />
+          </Key>
+          <Property Name="fid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="originalcost" Type="Int32" />
+          <Property Name="retailprice" Type="Int32" />
+          <Property Name="stock" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="offer" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Meat">
+          <Key>
+            <PropertyRef Name="mid" />
+          </Key>
+          <Property Name="mid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="originalcost" Type="Int32" />
+          <Property Name="retailprice" Type="Int32" />
+          <Property Name="stock" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="offer" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="packedfood">
+          <Key>
+            <PropertyRef Name="pacid" />
+          </Key>
+          <Property Name="pacid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="originalcost" Type="Int32" />
+          <Property Name="retailprice" Type="Int32" />
+          <Property Name="stock" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="offer" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Roleid" />
+          </Key>
+          <Property Name="Roleid" Type="Int32" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="DOTNETModel.FK__Users__Roleid__6383C8BA" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="todayoffer">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="originalcost" Type="Int32" />
+          <Property Name="retailprice" Type="Int32" />
+          <Property Name="stock" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="offer" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Vegetable">
+          <Key>
+            <PropertyRef Name="vegid" />
+          </Key>
+          <Property Name="vegid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="originalcost" Type="Int32" />
+          <Property Name="retailprice" Type="Int32" />
+          <Property Name="stock" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="offer" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="DOTNETEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Flowers" EntityType="Self.Flower" />
+          <EntitySet Name="Fruits" EntityType="Self.Fruit" />
+          <EntitySet Name="Meats" EntityType="Self.Meat" />
+          <EntitySet Name="packedfoods" EntityType="Self.packedfood" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="todayoffers" EntityType="Self.todayoffer" />
+          <EntitySet Name="Vegetables" EntityType="Self.Vegetable" />
+          <FunctionImport Name="Validate_User" ReturnType="Collection(DOTNETModel.Validate_User_Result)">
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Modifiedby">
+          <Parameter Name="Username" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Users" EntityType="DOTNETModel.User" />
+          <AssociationSet Name="FK__Users__Roleid__6383C8BA" Association="DOTNETModel.FK__Users__Roleid__6383C8BA">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Orders" EntityType="DOTNETModel.Order" />
+          <AssociationSet Name="FK__Orders__userid__6FE99F9F" Association="DOTNETModel.FK__Orders__userid__6FE99F9F">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="Validate_User_Result">
+          <Property Type="Int32" Name="userid" Nullable="true" />
+          <Property Type="String" Name="Roles" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Roleid" Type="Int32" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="modified_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Role" Relationship="DOTNETModel.FK__Users__Roleid__6383C8BA" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Orders" Relationship="DOTNETModel.FK__Orders__userid__6FE99F9F" FromRole="User" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK__Users__Roleid__6383C8BA">
+          <End Type="DOTNETModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="DOTNETModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Roleid" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="orderid" />
+          </Key>
+          <Property Name="orderid" Type="Int32" Nullable="false" />
+          <Property Name="productname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="productimage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="userid" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="DOTNETModel.FK__Orders__userid__6FE99F9F" FromRole="Order" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Orders__userid__6FE99F9F">
+          <End Type="DOTNETModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DOTNETModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DOTNETModelStoreContainer" CdmEntityContainer="DOTNETEntities">
+          <EntitySetMapping Name="Flowers">
+            <EntityTypeMapping TypeName="DOTNETModel.Flower">
+              <MappingFragment StoreEntitySet="Flower">
+                <ScalarProperty Name="fid" ColumnName="fid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="originalcost" ColumnName="originalcost" />
+                <ScalarProperty Name="retailprice" ColumnName="retailprice" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="offer" ColumnName="offer" />
+                <ScalarProperty Name="category" ColumnName="category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fruits">
+            <EntityTypeMapping TypeName="DOTNETModel.Fruit">
+              <MappingFragment StoreEntitySet="Fruit">
+                <ScalarProperty Name="fid" ColumnName="fid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="originalcost" ColumnName="originalcost" />
+                <ScalarProperty Name="retailprice" ColumnName="retailprice" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="offer" ColumnName="offer" />
+                <ScalarProperty Name="category" ColumnName="category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Meats">
+            <EntityTypeMapping TypeName="DOTNETModel.Meat">
+              <MappingFragment StoreEntitySet="Meat">
+                <ScalarProperty Name="mid" ColumnName="mid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="originalcost" ColumnName="originalcost" />
+                <ScalarProperty Name="retailprice" ColumnName="retailprice" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="offer" ColumnName="offer" />
+                <ScalarProperty Name="category" ColumnName="category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="packedfoods">
+            <EntityTypeMapping TypeName="DOTNETModel.packedfood">
+              <MappingFragment StoreEntitySet="packedfood">
+                <ScalarProperty Name="pacid" ColumnName="pacid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="originalcost" ColumnName="originalcost" />
+                <ScalarProperty Name="retailprice" ColumnName="retailprice" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="offer" ColumnName="offer" />
+                <ScalarProperty Name="category" ColumnName="category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DOTNETModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Roleid" ColumnName="Roleid" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="todayoffers">
+            <EntityTypeMapping TypeName="DOTNETModel.todayoffer">
+              <MappingFragment StoreEntitySet="todayoffer">
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="originalcost" ColumnName="originalcost" />
+                <ScalarProperty Name="retailprice" ColumnName="retailprice" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="offer" ColumnName="offer" />
+                <ScalarProperty Name="category" ColumnName="category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vegetables">
+            <EntityTypeMapping TypeName="DOTNETModel.Vegetable">
+              <MappingFragment StoreEntitySet="Vegetable">
+                <ScalarProperty Name="vegid" ColumnName="vegid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="originalcost" ColumnName="originalcost" />
+                <ScalarProperty Name="retailprice" ColumnName="retailprice" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="offer" ColumnName="offer" />
+                <ScalarProperty Name="category" ColumnName="category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Validate_User" FunctionName="DOTNETModel.Store.Validate_User">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DOTNETModel.Validate_User_Result">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Modifiedby" FunctionName="DOTNETModel.Store.Modifiedby" />
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DOTNETModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Roleid" ColumnName="Roleid" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DOTNETModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="productimage" ColumnName="productimage" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="productname" ColumnName="productname" />
+                <ScalarProperty Name="orderid" ColumnName="orderid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
